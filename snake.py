@@ -6,7 +6,7 @@ Student 2: Emiliano Saucedo Arriola | A01659258
 Exercises
 
 1. Moving food. [DONE BY ALEJANDRO]
-2. Random colors. [DONE BY ALEJANDRO]
+2. Random colors. [DONE BY EMILIANO]
 """
 
 from random import randrange
@@ -30,7 +30,14 @@ def inside(head):
     return -200 < head.x < 190 and -200 < head.y < 190
 
 
+cont = 0
+
+
 def move():
+    """Creating a cont"""
+    global cont
+    cont += 1
+
     """Move snake forward one segment."""
     head = snake[-1].copy()
     head.move(aim)
@@ -53,6 +60,29 @@ def move():
 
     for body in snake:
         square(body.x, body.y, 9, 'black')
+
+    """Moving food randomly while checking is not traspassing the boundaries"""
+    if (cont % 8 == 0):
+        options = randrange(1, 5)
+        if options == 1 and food.y < 150:  # Goes up
+            food.y += 10
+        else:
+            food.y -= 10
+
+        if options == 2 and food.x < 150:  # Goes right
+            food.x += 10
+        else:
+            food.x -= 10
+
+        if options == 3 and food.y > -150:  # Goes down
+            food.y -= 10
+        else:
+            food.y += 10
+
+        if options == 4 and food.x > -150:  # Goes left
+            food.x -= 10
+        else:
+            food.x += 10
 
     square(food.x, food.y, 9, 'green')
     update()
