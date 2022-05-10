@@ -1,12 +1,12 @@
 """
-Game: Paint (May 10th, 2022)
+Game: Snake (May 10th, 2022)
 Student 1: Alejandro Díaz Villagómez | A01276769
 Student 2: Emiliano Saucedo Arriola | A01659258
 
 Exercises
 
 1. Moving food. [DONE BY ALEJANDRO]
-2. Random colors. [DONE BY ALEJANDRO]
+2. Random colors. [DONE BY EMILIANO]
 """
 
 from random import randrange
@@ -18,6 +18,19 @@ food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 
+# Set a color array
+colors = ['blue', 'green', 'purple', 'orange', 'black']
+
+# Generate random values for index in array to choose a color
+rand_color_S = randrange(0, 4)
+rand_color_F = randrange(0, 4)
+
+# If random index is the same, look for another random value
+if(rand_color_S == rand_color_F):
+    rand_color_S = randrange(0, 4)
+else:
+    snake_color = colors[rand_color_S]
+    food_color = colors[rand_color_F]    
 
 def change(x, y):
     """Change snake direction."""
@@ -46,15 +59,18 @@ def move():
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
+        
     else:
         snake.pop(0)
 
     clear()
 
+    # Change snake's body color
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, snake_color)
 
-    square(food.x, food.y, 9, 'green')
+    # Change snake's food color
+    square(food.x, food.y, 9, food_color)
     update()
     ontimer(move, 100)
 
