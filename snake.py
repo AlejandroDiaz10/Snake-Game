@@ -18,6 +18,20 @@ food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 
+# Set a color array
+colors = ['blue', 'green', 'purple', 'orange', 'black']
+
+# Generate random values for index in array to choose a color
+rand_color_S = randrange(0, 4)
+rand_color_F = randrange(0, 4)
+
+# If random index is the same, look for another random value
+if(rand_color_S == rand_color_F):
+    rand_color_S = randrange(0, 4)
+
+snake_color = colors[rand_color_S]
+food_color = colors[rand_color_F]    
+
 
 def change(x, y):
     """Change snake direction."""
@@ -58,8 +72,9 @@ def move():
 
     clear()
 
+    # Change snake's body color
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, snake_color)
 
     """Moving food randomly while checking is not traspassing the boundaries"""
     if (cont % 8 == 0):
@@ -84,7 +99,8 @@ def move():
         else:
             food.x += 10
 
-    square(food.x, food.y, 9, 'green')
+    # Change snake's food color
+    square(food.x, food.y, 9, food_color)
     update()
     ontimer(move, 100)
 
